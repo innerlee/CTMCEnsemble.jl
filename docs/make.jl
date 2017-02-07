@@ -1,3 +1,3 @@
 using Documenter, CTMCEnsemble
 
-makedocs()
+makedocs(modules=[CTMCEnsemble])

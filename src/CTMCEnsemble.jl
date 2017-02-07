@@ -1,5 +1,7 @@
 module CTMCEnsemble
 
+export build
+
 """
 
 Build the generator matrix.
