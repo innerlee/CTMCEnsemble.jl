@@ -1,0 +1,14 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "CTMCEnsemble.jl Documentation\n\n\n#\n\n\nCTMCEnsemble.build\n \n \nFunction\n.\n\n\nBuild the generator matrix.\n\n\nsource", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#ctmcensemblejl-documentation", 
+            "text": "#  CTMCEnsemble.build     Function .  Build the generator matrix.  source", 
+            "title": "CTMCEnsemble.jl Documentation"
+        }
+    ]
+}
