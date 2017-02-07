@@ -1,6 +1,8 @@
 using Documenter, CTMCEnsemble
 
-makedocs(modules=[CTMCEnsemble])
+makedocs(
+    modules=[CTMCEnsemble]
+)
 
 deploydocs(
     deps   = Deps.pip("mkdocs", "python-markdown-math"),
