@@ -8,7 +8,7 @@ end
 
 @testset "random cases" begin
     # single
-    for i = 1:100
+    for i = 1:10
         d = 1000
         p = normalize!(rand(d), 1)
         G = build([(p, 1:d)])
@@ -16,7 +16,7 @@ end
     end
 
     # multiple
-    for i = 1:100
+    for i = 1:10
         d = 600
         v() = normalize!(rand(300), 1)
         G = build([
@@ -24,7 +24,11 @@ end
             (v(),   201:500),
             (v(), ((401:700) - 1) % 600 + 1),
         ])
-        @test sum(stationdist(G)) ≈ 1
+        λ, ϕ = eig(G)
+        v = real(ϕ[:, indmin(abs(λ))])
+        v = v / sum(v)
+
+        @test stationdist(G) ≈ v
     end
 
 end
