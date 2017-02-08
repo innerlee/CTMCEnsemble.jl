@@ -7,7 +7,6 @@ DocTestSetup = quote
 end
 ```
 
-```@docs
-build
-stationdist
+```@autodocs
+Modules = [CTMCEnsemble]
 ```
