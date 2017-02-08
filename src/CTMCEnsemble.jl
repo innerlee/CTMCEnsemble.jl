@@ -50,7 +50,7 @@ function stationdist(G)
     λ, v = eigs(G, nev=1, which=:LR)
     assert(abs(λ[1]) < 1e-5)
     assert(isreal(v))
-    v = real(v)
+    v = vec(real(v))
     v / sum(v)
 end
 
