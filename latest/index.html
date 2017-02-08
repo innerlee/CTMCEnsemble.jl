@@ -100,8 +100,36 @@
 <h1 id="ctmcensemblejl-documentation">CTMCEnsemble.jl Documentation</h1>
 <p><a id='CTMCEnsemble.build' href='#CTMCEnsemble.build'>#</a>
 <strong><code>CTMCEnsemble.build</code></strong> &mdash; <em>Function</em>.</p>
+<pre><code>build(preds, nclass=0; weights=nothing)
+</code></pre>
+
 <p>Build the generator matrix.</p>
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/108f690e338d6564896e592c5e1956873c6f8ffd/src/CTMCEnsemble.jl#L5-L8' class='documenter-source'>source</a><br></p>
+<p><strong>Example</strong></p>
+<pre><code class="jlcon">julia&gt; build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3×3 Array{Float64,2}:
+ -0.5   0.5   0.0
+  0.5  -1.0   0.5
+  0.0   0.5  -0.5
+</code></pre>
+
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/c39ec2147355a9efeea16ad67cc620e296b78de3/src/CTMCEnsemble.jl#L7-L21' class='documenter-source'>source</a><br></p>
+<p><a id='CTMCEnsemble.stationdist' href='#CTMCEnsemble.stationdist'>#</a>
+<strong><code>CTMCEnsemble.stationdist</code></strong> &mdash; <em>Function</em>.</p>
+<pre><code>stationdist(G)
+</code></pre>
+
+<p>Compute stationary probability distribution given generator $G$.</p>
+<p><strong>Example</strong></p>
+<pre><code class="jlcon">julia&gt; G = build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);
+
+julia&gt; stationdist(G)
+3×1 Array{Float64,2}:
+ 0.333333
+ 0.333333
+ 0.333333
+</code></pre>
+
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/c39ec2147355a9efeea16ad67cc620e296b78de3/src/CTMCEnsemble.jl#L32-L48' class='documenter-source'>source</a><br></p>
               
             </div>
           </div>
@@ -143,5 +171,5 @@
 
 <!--
 MkDocs version : 0.16.1
-Build Date UTC : 2017-02-07 14:59:58
+Build Date UTC : 2017-02-08 03:58:08
 -->
