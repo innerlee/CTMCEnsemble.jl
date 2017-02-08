@@ -1,5 +1,13 @@
 # CTMCEnsemble.jl Documentation
 
+```@meta
+CurrentModule = CTMCEnsemble
+DocTestSetup = quote
+    using CTMCEnsemble
+end
+```
+
 ```@docs
-build(preds, nclass=0)
+build
+stationdist
 ```
