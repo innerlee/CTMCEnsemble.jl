@@ -10,7 +10,7 @@ export
 """
     average(preds, weights=nothing; multiplicity=true)
 
-Compute the degree-weighted average.
+Compute the average. `multiplicity` for arithmetic mean based on mulitpiliciity.
 
 # Example
 
@@ -20,6 +20,12 @@ julia> average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
  0.333333
  0.333333
  0.333333
+
+julia> average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=false)
+3-element Array{Float64,1}:
+ 0.25
+ 0.5
+ 0.25
 ```
 """
 function average(preds, weights=nothing; multiplicity=true)
@@ -41,7 +47,7 @@ end
 """
     product(preds, weights=nothing; multiplicity=true)
 
-Compute the degree-weighted product.
+Compute the product. `multiplicity` for geometric mean based on mulitpiliciity.
 
 # Example
 
@@ -51,6 +57,12 @@ julia> product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
  0.333333
  0.333333
  0.333333
+
+julia> product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=false)
+3-element Array{Float64,1}:
+ 0.4
+ 0.2
+ 0.4
 ```
 """
 function product(preds, weights=nothing; multiplicity=true)
@@ -109,6 +121,7 @@ julia> powermethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
  0.333333
  0.333333
  0.333333
+```
 """
 function powermethod(preds, weights=nothing; maxiter=16)
     A = build(preds, weights)
@@ -130,11 +143,12 @@ Compute stationary distribution by svd method.
 # Example
 
 ```jldoctest
-julia> svdmethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
+julia> svdmethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.333333
  0.333333
  0.333333
+```
 """
 function svdmethod(preds, weights=nothing;)
     λ, ϕ = eig(build(preds, weights))
@@ -175,11 +189,12 @@ Compute stationary distribution by CTMC method.
 # Example
 
 ```jldoctest
-julia> ctmc([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
+julia> ctmc([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.333333
  0.333333
  0.333333
+```
 """
 ctmc(preds, weights=nothing) = stationdist(build(preds, weights))
 
