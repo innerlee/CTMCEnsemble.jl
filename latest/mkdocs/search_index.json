@@ -2,12 +2,12 @@
     "docs": [
         {
             "location": "/", 
-            "text": "CTMCEnsemble.jl Documentation\n\n\n#\n\n\nCTMCEnsemble.build\n \n \nFunction\n.\n\n\nbuild(preds, nclass=0; weights=nothing)\n\n\n\n\nBuild the generator matrix.\n\n\nExample\n\n\njulia\n build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])\n3\u00d73 Array{Float64,2}:\n -0.5   0.5   0.0\n  0.5  -1.0   0.5\n  0.0   0.5  -0.5\n\n\n\n\nsource\n\n\n#\n\n\nCTMCEnsemble.stationdist\n \n \nFunction\n.\n\n\nstationdist(G)\n\n\n\n\nCompute stationary probability distribution given generator $G$.\n\n\nExample\n\n\njulia\n G = build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);\n\njulia\n stationdist(G)\n3\u00d71 Array{Float64,2}:\n 0.333333\n 0.333333\n 0.333333\n\n\n\n\nsource", 
+            "text": "CTMCEnsemble.jl Documentation\n\n\n#\n\n\nCTMCEnsemble.build\n \n \nFunction\n.\n\n\nbuild(preds, nclass=0; weights=nothing)\n\n\n\n\nBuild the generator matrix.\n\n\nExample\n\n\njulia\n build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])\n3\u00d73 Array{Float64,2}:\n -0.5   0.5   0.0\n  0.5  -1.0   0.5\n  0.0   0.5  -0.5\n\n\n\n\nsource\n\n\n#\n\n\nCTMCEnsemble.stationdist\n \n \nMethod\n.\n\n\nstationdist(G)\n\n\n\n\nCompute stationary probability distribution given generator $G$.\n\n\nExample\n\n\njulia\n G = build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);\n\njulia\n stationdist(G)\n3-element Array{Float64,1}:\n 0.333333\n 0.333333\n 0.333333\n\n\n\n\nsource", 
             "title": "Home"
         }, 
         {
             "location": "/#ctmcensemblejl-documentation", 
-            "text": "#  CTMCEnsemble.build     Function .  build(preds, nclass=0; weights=nothing)  Build the generator matrix.  Example  julia  build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])\n3\u00d73 Array{Float64,2}:\n -0.5   0.5   0.0\n  0.5  -1.0   0.5\n  0.0   0.5  -0.5  source  #  CTMCEnsemble.stationdist     Function .  stationdist(G)  Compute stationary probability distribution given generator $G$.  Example  julia  G = build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);\n\njulia  stationdist(G)\n3\u00d71 Array{Float64,2}:\n 0.333333\n 0.333333\n 0.333333  source", 
+            "text": "#  CTMCEnsemble.build     Function .  build(preds, nclass=0; weights=nothing)  Build the generator matrix.  Example  julia  build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])\n3\u00d73 Array{Float64,2}:\n -0.5   0.5   0.0\n  0.5  -1.0   0.5\n  0.0   0.5  -0.5  source  #  CTMCEnsemble.stationdist     Method .  stationdist(G)  Compute stationary probability distribution given generator $G$.  Example  julia  G = build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);\n\njulia  stationdist(G)\n3-element Array{Float64,1}:\n 0.333333\n 0.333333\n 0.333333  source", 
             "title": "CTMCEnsemble.jl Documentation"
         }
     ]
