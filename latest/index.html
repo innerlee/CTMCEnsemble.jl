@@ -103,16 +103,22 @@
 <pre><code>average(preds, weights=nothing; multiplicity=true)
 </code></pre>
 
-<p>Compute the degree-weighted average.</p>
+<p>Compute the average. <code>multiplicity</code> for arithmetic mean based on mulitpiliciity.</p>
 <p><strong>Example</strong></p>
 <pre><code class="jlcon">julia&gt; average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.333333
  0.333333
  0.333333
+
+julia&gt; average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=false)
+3-element Array{Float64,1}:
+ 0.25
+ 0.5
+ 0.25
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/1751e0967385fb6cac9a2da86f7b184f1209f6f7/src/CTMCEnsemble.jl#L10-L24' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f6fac5d470f32612d803823eeab0237690136592/src/CTMCEnsemble.jl#L10-L30' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.ctmc' href='#CTMCEnsemble.ctmc'>#</a>
 <strong><code>CTMCEnsemble.ctmc</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>ctmc(preds, weights=nothing)
@@ -120,8 +126,14 @@
 
 <p>Compute stationary distribution by CTMC method.</p>
 <p><strong>Example</strong></p>
-<p>```jldoctest julia&gt; ctmc([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16) 3-element Array{Float64,1}:  0.333333  0.333333  0.333333</p>
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/1751e0967385fb6cac9a2da86f7b184f1209f6f7/src/CTMCEnsemble.jl#L170-L183' class='documenter-source'>source</a><br></p>
+<pre><code class="jlcon">julia&gt; ctmc([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3-element Array{Float64,1}:
+ 0.333333
+ 0.333333
+ 0.333333
+</code></pre>
+
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f6fac5d470f32612d803823eeab0237690136592/src/CTMCEnsemble.jl#L184-L198' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.powermethod' href='#CTMCEnsemble.powermethod'>#</a>
 <strong><code>CTMCEnsemble.powermethod</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>powermethod(preds, weights=nothing; maxiter=16)
@@ -129,23 +141,35 @@
 
 <p>Compute stationary distribution by power method.</p>
 <p><strong>Example</strong></p>
-<p>```jldoctest julia&gt; powermethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16) 3-element Array{Float64,1}:  0.333333  0.333333  0.333333</p>
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/1751e0967385fb6cac9a2da86f7b184f1209f6f7/src/CTMCEnsemble.jl#L99-L112' class='documenter-source'>source</a><br></p>
-<p><a id='CTMCEnsemble.product' href='#CTMCEnsemble.product'>#</a>
-<strong><code>CTMCEnsemble.product</code></strong> &mdash; <em>Function</em>.</p>
-<pre><code>product(preds, weights=nothing; multiplicity=true)
-</code></pre>
-
-<p>Compute the degree-weighted product.</p>
-<p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="jlcon">julia&gt; powermethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
 3-element Array{Float64,1}:
  0.333333
  0.333333
  0.333333
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/1751e0967385fb6cac9a2da86f7b184f1209f6f7/src/CTMCEnsemble.jl#L41-L55' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f6fac5d470f32612d803823eeab0237690136592/src/CTMCEnsemble.jl#L111-L125' class='documenter-source'>source</a><br></p>
+<p><a id='CTMCEnsemble.product' href='#CTMCEnsemble.product'>#</a>
+<strong><code>CTMCEnsemble.product</code></strong> &mdash; <em>Function</em>.</p>
+<pre><code>product(preds, weights=nothing; multiplicity=true)
+</code></pre>
+
+<p>Compute the product. <code>multiplicity</code> for geometric mean based on mulitpiliciity.</p>
+<p><strong>Example</strong></p>
+<pre><code class="jlcon">julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3-element Array{Float64,1}:
+ 0.333333
+ 0.333333
+ 0.333333
+
+julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=false)
+3-element Array{Float64,1}:
+ 0.4
+ 0.2
+ 0.4
+</code></pre>
+
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f6fac5d470f32612d803823eeab0237690136592/src/CTMCEnsemble.jl#L47-L67' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.svdmethod' href='#CTMCEnsemble.svdmethod'>#</a>
 <strong><code>CTMCEnsemble.svdmethod</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>svdmethod(preds, weights=nothing; maxiter=16)
@@ -153,8 +177,14 @@
 
 <p>Compute stationary distribution by svd method.</p>
 <p><strong>Example</strong></p>
-<p>```jldoctest julia&gt; svdmethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16) 3-element Array{Float64,1}:  0.333333  0.333333  0.333333</p>
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/1751e0967385fb6cac9a2da86f7b184f1209f6f7/src/CTMCEnsemble.jl#L125-L138' class='documenter-source'>source</a><br></p>
+<pre><code class="jlcon">julia&gt; svdmethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3-element Array{Float64,1}:
+ 0.333333
+ 0.333333
+ 0.333333
+</code></pre>
+
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f6fac5d470f32612d803823eeab0237690136592/src/CTMCEnsemble.jl#L138-L152' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.build' href='#CTMCEnsemble.build'>#</a>
 <strong><code>CTMCEnsemble.build</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>build(preds, weights=nothing; nclass=0)
@@ -169,7 +199,7 @@
   0.0   0.5  -0.5
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/1751e0967385fb6cac9a2da86f7b184f1209f6f7/src/CTMCEnsemble.jl#L74-L88' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f6fac5d470f32612d803823eeab0237690136592/src/CTMCEnsemble.jl#L86-L100' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.stationdist-Tuple{Any}' href='#CTMCEnsemble.stationdist-Tuple{Any}'>#</a>
 <strong><code>CTMCEnsemble.stationdist</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>stationdist(G)
@@ -186,7 +216,7 @@ julia&gt; CTMCEnsemble.stationdist(G)
  0.333333
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/1751e0967385fb6cac9a2da86f7b184f1209f6f7/src/CTMCEnsemble.jl#L145-L161' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f6fac5d470f32612d803823eeab0237690136592/src/CTMCEnsemble.jl#L159-L175' class='documenter-source'>source</a><br></p>
               
             </div>
           </div>
@@ -228,5 +258,5 @@ julia&gt; CTMCEnsemble.stationdist(G)
 
 <!--
 MkDocs version : 0.16.1
-Build Date UTC : 2017-02-08 11:20:06
+Build Date UTC : 2017-02-08 12:09:33
 -->
