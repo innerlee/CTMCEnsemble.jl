@@ -40,7 +40,7 @@ Compute stationary probability distribution given generator ``G``.
 julia> G = build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);
 
 julia> stationdist(G)
-3×1 Array{Float64,2}:
+3-element Array{Float64,1}:
  0.333333
  0.333333
  0.333333
