@@ -18,11 +18,11 @@ end
     # multiple
     for i = 1:10
         d = 600
-        v() = normalize!(rand(300), 1)
+        newv() = normalize!(rand(300), 1)
         G = build([
-            (v(),     1:300),
-            (v(),   201:500),
-            (v(), ((401:700) - 1) % 600 + 1),
+            (newv(),     1:300),
+            (newv(),   201:500),
+            (newv(), ((401:700) - 1) % 600 + 1),
         ])
         λ, ϕ = eig(G)
         v = real(ϕ[:, indmin(abs(λ))])
