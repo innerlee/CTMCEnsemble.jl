@@ -27,7 +27,7 @@ vote_all(preds) = vote.((getindex.(preds,1))...)
 
 onehot(i, n, eps=0) = setindex!(ones(n) * eps / (n - 1), 1 - eps, i)
 
-function ctmc_all(preds)
+function pred_all(preds, method)
     results = Int[]
     n = size(preds[1][1], 1)
     for i = 1:n
@@ -35,7 +35,7 @@ function ctmc_all(preds)
         for (pr, ran) in preds
             push!(p, (onehot(findfirst(ran, pr[i]), length(ran), 1e-5), ran))
         end
-        push!(results, indmax(ctmc(p)))
+        push!(results, indmax(method(p)))
     end
     results
 end
@@ -53,6 +53,8 @@ l = labels[reorder]
 results = []
 voteacc = 0
 ctmcacc = 0
+meanacc = 0
+prodacc = 0
 for f = 1:nfold
     trainmask  = trues(length(l))
     trainmask[f:nfold:end] = false
@@ -72,8 +74,12 @@ for f = 1:nfold
     end
 
     voteacc += sum(vote_all(preds) .== testlabel)
-    ctmcacc += sum(ctmc_all(preds) .== testlabel)
+    ctmcacc += sum(pred_all(preds, ctmc) .== testlabel)
+    meanacc += sum(pred_all(preds, average) .== testlabel)
+    prodacc += sum(pred_all(preds, product) .== testlabel)
 end
 
-println(voteacc / length(l))
-println(ctmcacc / length(l))
+println("vote: ", voteacc / length(l))
+println("ctmc: ", ctmcacc / length(l))
+println("mean: ", meanacc / length(l))
+println("prod: ", prodacc / length(l))
