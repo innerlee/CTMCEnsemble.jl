@@ -123,7 +123,7 @@ julia> powermethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
  0.333333
 ```
 """
-function powermethod(preds, weights=nothing; maxiter=16)
+function powermethod(preds, weights=nothing; maxiter=24)
     A = build(preds, weights)
     A .+= eye(A) .* length(preds)
     v = average(preds, weights)
