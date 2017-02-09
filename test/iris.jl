@@ -42,7 +42,7 @@ end
 
 preds = 0
 # 10-cv
-C = 1
+C = 2^5
 bias = 1
 srand(0) # fix seed
 nfold = 10
