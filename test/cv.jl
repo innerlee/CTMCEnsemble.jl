@@ -1,5 +1,23 @@
 using LIBLINEAR
 using CTMCEnsemble
+using StatsBase
+
+function loaddata(file, nfeature)
+    data = zeros(nfeature, 0)
+    label = Int[]
+    for l in eachline(file)
+        items = split(l)
+        push!(label, parse(Int, items[1]))
+        f = zeros(nfeature)
+        for i in items[2:end]
+            j, v = split(i, ":")
+            f[parse(Int, j)] = parse(Float64, v)
+        end
+        data = hcat(data, f)
+    end
+
+    (data, label)
+end
 
 function vote(p...)
     m = countmap([p...])
@@ -28,6 +46,7 @@ function cv(features, labels; nfold=10, C=1, bias=1)
     reorder = shuffle(1:length(labels))
     d = features[:, reorder]
     l = labels[reorder]
+    nclass = maximum(labels)
 
     results = []
     voteacc = 0
@@ -43,7 +62,7 @@ function cv(features, labels; nfold=10, C=1, bias=1)
         testlabel  = l[!trainmask]
 
         preds = []
-        for i=1:length(classes), j=i+1:length(classes)
+        for i=1:nclass, j=i+1:nclass
             localcls = [i, j]
             trainmask = in.(trainlabel, [localcls])
             # testmask = in.(testlabel, [localcls])
@@ -58,6 +77,7 @@ function cv(features, labels; nfold=10, C=1, bias=1)
         prodacc += sum(pred_all(preds, product) .== testlabel)
     end
 
+    println("> C=$C, bias=$bias")
     println("vote: ", voteacc / length(l))
     println("ctmc: ", ctmcacc / length(l))
     println("mean: ", meanacc / length(l))
