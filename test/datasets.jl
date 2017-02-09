@@ -99,3 +99,86 @@ cv(features, labels, C=2^5, bias=1)
 # prod: 0.9775280898876404
 features, labels = loaddata("data/wine.scale", 13)
 cv(features, labels, C=2.0^-2, bias=1)
+
+
+#####################
+
+# dna
+
+# Source: Statlog / Dna
+# Preprocessing: Training data is further separated into two sets, tr and val. [CWH01a]
+# # of classes: 3
+# # of data: 2,000 / 1,186 (testing) / 1,400 (tr) / 600 (val)
+# # of features: 180
+# Files:
+# dna.scale
+# dna.scale.t (testing)
+# dna.scale.tr (tr)
+# dna.scale.val (val)
+# > C=0.0078125, bias=4
+# vote: 0.952
+# ctmc: 0.9525
+# mean: 0.9525
+# prod: 0.9525
+features, labels = loaddata("data/dna.scale", 180)
+cv(features, labels, C=2.0^-7, bias=2^2)
+
+# satimage
+
+# Source: Statlog / Satimage
+# Preprocessing: Training data is further separated into two sets, tr and val. [CWH01a]
+# # of classes: 6
+# # of data: 4,435 / 2,000 (testing) / 3,104 (tr) / 1,331 (val)
+# # of features: 36
+# Files:
+# satimage.scale
+# satimage.scale.t (testing)
+# satimage.scale.tr (tr)
+# satimage.scale.val (val)
+# > C=8, bias=0.001
+# vote: 0.8683201803833145
+# ctmc: 0.86967305524239
+# mean: 0.8683201803833145
+# prod: 0.8683201803833145
+features, labels = loaddata("data/satimage.scale", 36)
+cv(features, labels, C=2^3, bias=.001)
+
+# letter
+
+# Source: Statlog / Letter
+# Preprocessing: Training data is further separated into two sets, tr and val. [CWH01a]
+# # of classes: 26
+# # of data: 15,000 / 5,000 (testing) / 10,500 (tr) / 4,500 (val)
+# # of features: 16
+# Files:
+# letter.scale
+# letter.scale.t (testing)
+# letter.scale.tr (tr)
+# letter.scale.val (val)
+# > C=8, bias=1
+# vote: 0.8450666666666666
+# ctmc: 0.8438666666666667
+# mean: 0.8445333333333334
+# prod: 0.8445333333333334
+features, labels = loaddata("data/letter.scale", 16)
+cv(features, labels, C=2^3, bias=1)
+
+# shuttle
+
+# Source: Statlog / Shuttle
+# Preprocessing: Training data is further separated into two sets, tr and val. [CWH01a]
+# # of classes: 7
+# # of data: 43,500 / 14,500 (testing) / 30,450 (tr) / 13,050 (val)
+# # of features: 9
+# Files:
+# shuttle.scale
+# shuttle.scale.t (testing)
+# shuttle.scale.tr (tr)
+# shuttle.scale.val (val)
+# > C=64, bias=1
+# vote: 0.9693103448275862
+# ctmc: 0.9695172413793104
+# mean: 0.9717701149425287
+# prod: 0.9717931034482759
+features, labels = loaddata("data/shuttle.scale", 9)
+cv(features, labels, C=2^6, bias=1)
