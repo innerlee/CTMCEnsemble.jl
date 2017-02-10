@@ -42,7 +42,6 @@ function pred_all(preds, method)
 end
 
 function cv(features, labels; nfold=10, C=1, bias=1)
-    srand(0) # fix seed
     reorder = shuffle(1:length(labels))
     d = features[:, reorder]
     l = labels[reorder]
