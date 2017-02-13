@@ -7,7 +7,8 @@ export
     svdmethod,
     ctmc,
     top1,
-    top5
+    top5,
+    softmax!
 
 """
     average(preds, weights=nothing; multiplicity=true)
@@ -344,6 +345,8 @@ end
 """
     top1(data, label)
 
+Top-1 accuracy.
+
 # Example
 
 ```jldoctest
@@ -359,6 +362,8 @@ top1(data, label) = mean(indmax.(view.([data], [:], 1:size(data, 2))) .== vec(la
 
 """
     top5(data, label)
+
+Top-5 accuracy.
 
 # Example
 
@@ -379,5 +384,44 @@ julia> top5(p, 1:5)
 ```
 """
 top5(data, label) = mean(in.(vec(label), getindex.(sortperm.(view.([data], [:], 1:size(data, 2)), rev=true), [1:5])))
+
+"""
+    softmax!(data)
+
+Inplace softmax col-wise.
+
+# Example
+
+```jldoctest
+julia> p = [0.49  0.09  0.71  0.07  0.28
+            0.73  0.48  0.01  0.96  0.51
+            0.87  0.09  0.76  0.63  0.39
+            0.37  0.65  0.89  0.31  0.42
+            0.6   0.49  0.19  0.21  0.77
+            0.56  0.32  0.27  1.0   0.92
+            0.5   0.83  0.99  0.4   0.81
+            0.34  0.03  0.83  0.07  0.62
+            0.93  0.75  0.15  0.37  0.21
+            0.25  0.19  0.83  0.69  0.64];
+
+julia> softmax!(p)
+10×5 Array{Float64,2}:
+ 0.018823   0.0126174  0.0234549  0.0123676  0.0152576
+ 0.0239287  0.0186357  0.0116474  0.0301167  0.0192033
+ 0.0275246  0.0126174  0.0246575  0.0216516  0.0170318
+ 0.0166945  0.022089   0.0280806  0.0157223  0.0175504
+ 0.0210117  0.018823   0.0139444  0.0142261  0.0249053
+ 0.0201878  0.0158803  0.0151058  0.0313458  0.0289358
+ 0.0190122  0.0264453  0.0310339  0.0172029  0.0259217
+ 0.0162011  0.0118827  0.0264453  0.0123676  0.0214362
+ 0.0292266  0.0244121  0.0133977  0.0166945  0.0142261
+ 0.0148067  0.0139444  0.0264453  0.0229905  0.0218692
+"""
+function softmax!(data)
+    m = maximum(data)
+    data .= exp.(data .- m)
+    normalize!.(view.([data], [:], 1:size(data, 2)), 1)
+    data
+end
 
 end # module
