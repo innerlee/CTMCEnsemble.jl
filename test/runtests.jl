@@ -40,7 +40,7 @@ end
         preds = [
             (newv(),     1:300),
             (newv(),   201:500),
-            (newv(), ((401:700) - 1) % 600 + 1),
+            (newv(), ((401:700) - 1) .% 600 .+ 1),
         ]
 
         v_powermethod = powermethod(preds, maxiter=64)

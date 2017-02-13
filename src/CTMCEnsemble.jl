@@ -271,7 +271,7 @@ end
 
 function _svdmethod(preds, weights=nothing;)
     λ, ϕ = eig(build(preds, weights))
-    v = real(ϕ[:, indmin(abs(λ))])
+    v = real(ϕ[:, indmin(abs.(λ))])
     v / sum(v)
 end
 
@@ -294,7 +294,7 @@ julia> CTMCEnsemble.stationdist(G)
 """
 function stationdist(G)
     λ, v = eigs(G, nev=1, which=:LR)
-    assert(abs(λ[1]) < 1e-5)
+    assert(all(abs.(λ[1]) < 1e-5))
     assert(isreal(v))
     v = vec(real(v))
     v / sum(v)
