@@ -5,7 +5,9 @@ export
     product,
     powermethod,
     svdmethod,
-    ctmc
+    ctmc,
+    top1,
+    top5
 
 """
     average(preds, weights=nothing; multiplicity=true)
@@ -338,5 +340,44 @@ function ctmc(preds, weights=nothing)
     end
     hcat(ans...)
 end
+
+"""
+    top1(data, label)
+
+# Example
+
+```jldoctest
+julia> p = [0.333333  0.0243902  0.0217391  0.230769
+            0.333333  0.097561   0.195652   0.538462
+            0.333333  0.878049   0.782609   0.230769];
+
+julia> top1(p, [1, 3, 3, 2])
+1.0
+```
+"""
+top1(data, label) = mean(indmax.(view.([data], [:], 1:size(data, 2))) .== vec(label))
+
+"""
+    top5(data, label)
+
+# Example
+
+```jldoctest
+julia> p = [0.49  0.09  0.71  0.07  0.28
+            0.73  0.48  0.01  0.96  0.51
+            0.87  0.09  0.76  0.63  0.39
+            0.37  0.65  0.89  0.31  0.42
+            0.6   0.49  0.19  0.21  0.77
+            0.56  0.32  0.27  1.0   0.92
+            0.5   0.83  0.99  0.4   0.81
+            0.34  0.03  0.83  0.07  0.62
+            0.93  0.75  0.15  0.37  0.21
+            0.25  0.19  0.83  0.69  0.64];
+
+julia> top5(p, 1:5)
+0.6
+```
+"""
+top5(data, label) = mean(in.(vec(label), getindex.(sortperm.(view.([data], [:], 1:size(data, 2)), rev=true), [1:5])))
 
 end # module
