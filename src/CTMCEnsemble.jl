@@ -63,9 +63,41 @@ julia> product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=false)
  0.4
  0.2
  0.4
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> product([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.333333  0.14463   0.0755136  0.230769
+ 0.333333  0.204537  0.320377   0.538462
+ 0.333333  0.650833  0.604109   0.230769
+
+julia> product([(A, [1, 2]), (B, [2, 3])], multiplicity=false)
+3×4 Array{Float64,2}:
+ 0.4  0.169492   0.0925926  0.275229
+ 0.2  0.0677966  0.166667   0.449541
+ 0.4  0.762712   0.740741   0.275229
 ```
 """
 function product(preds, weights=nothing; multiplicity=true)
+    ndims(preds[1][1]) == 1 &&
+        return _product(preds, weights, multiplicity=multiplicity)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, _product(map(x -> (x[1][:, i], x[2]), preds), weights, multiplicity=multiplicity))
+    end
+    hcat(ans...)
+end
+
+function _product(preds, weights=nothing; multiplicity=true)
     nclass = maximum(maximum.(getindex.(preds, 2)))
     weights == nothing && (weights = ones(length(preds)))
     v = ones(nclass)
