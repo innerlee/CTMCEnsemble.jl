@@ -118,7 +118,7 @@ julia&gt; average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=fal
  0.25
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f9da28d1be2a7f49c447e86441bcf93c5b668aec/src/CTMCEnsemble.jl#L10-L30' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/af93085672a562c182d0ff414c8def094bda7adc/src/CTMCEnsemble.jl#L10-L30' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.ctmc' href='#CTMCEnsemble.ctmc'>#</a>
 <strong><code>CTMCEnsemble.ctmc</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>ctmc(preds, weights=nothing)
@@ -149,7 +149,7 @@ julia&gt; ctmc([(A, [1, 2]), (B, [2, 3])])
  0.333333  0.878049   0.782609   0.230769
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f9da28d1be2a7f49c447e86441bcf93c5b668aec/src/CTMCEnsemble.jl#L185-L215' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/af93085672a562c182d0ff414c8def094bda7adc/src/CTMCEnsemble.jl#L237-L267' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.powermethod' href='#CTMCEnsemble.powermethod'>#</a>
 <strong><code>CTMCEnsemble.powermethod</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>powermethod(preds, weights=nothing; maxiter=16)
@@ -162,9 +162,25 @@ julia&gt; ctmc([(A, [1, 2]), (B, [2, 3])])
  0.333333
  0.333333
  0.333333
+
+julia&gt; A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia&gt; B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia&gt; powermethod([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.333333  0.0244257  0.0217406  0.230769
+ 0.333333  0.0976007  0.195655   0.538462
+ 0.333333  0.877974   0.782604   0.230769
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f9da28d1be2a7f49c447e86441bcf93c5b668aec/src/CTMCEnsemble.jl#L111-L125' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/af93085672a562c182d0ff414c8def094bda7adc/src/CTMCEnsemble.jl#L111-L141' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.product' href='#CTMCEnsemble.product'>#</a>
 <strong><code>CTMCEnsemble.product</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>product(preds, weights=nothing; multiplicity=true)
@@ -185,7 +201,7 @@ julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=fal
  0.4
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f9da28d1be2a7f49c447e86441bcf93c5b668aec/src/CTMCEnsemble.jl#L47-L67' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/af93085672a562c182d0ff414c8def094bda7adc/src/CTMCEnsemble.jl#L47-L67' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.svdmethod' href='#CTMCEnsemble.svdmethod'>#</a>
 <strong><code>CTMCEnsemble.svdmethod</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>svdmethod(preds, weights=nothing; maxiter=16)
@@ -198,9 +214,25 @@ julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=fal
  0.333333
  0.333333
  0.333333
+
+julia&gt; A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia&gt; B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia&gt; svdmethod([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.333333  0.0243902  0.0217391  0.230769
+ 0.333333  0.097561   0.195652   0.538462
+ 0.333333  0.878049   0.782609   0.230769
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f9da28d1be2a7f49c447e86441bcf93c5b668aec/src/CTMCEnsemble.jl#L139-L153' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/af93085672a562c182d0ff414c8def094bda7adc/src/CTMCEnsemble.jl#L165-L195' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.build' href='#CTMCEnsemble.build'>#</a>
 <strong><code>CTMCEnsemble.build</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>build(preds, weights=nothing; nclass=0)
@@ -215,7 +247,7 @@ julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=fal
   0.0   0.5  -0.5
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f9da28d1be2a7f49c447e86441bcf93c5b668aec/src/CTMCEnsemble.jl#L86-L100' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/af93085672a562c182d0ff414c8def094bda7adc/src/CTMCEnsemble.jl#L86-L100' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.stationdist-Tuple{Any}' href='#CTMCEnsemble.stationdist-Tuple{Any}'>#</a>
 <strong><code>CTMCEnsemble.stationdist</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>stationdist(G)
@@ -232,7 +264,7 @@ julia&gt; CTMCEnsemble.stationdist(G)
  0.333333
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/f9da28d1be2a7f49c447e86441bcf93c5b668aec/src/CTMCEnsemble.jl#L160-L176' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/af93085672a562c182d0ff414c8def094bda7adc/src/CTMCEnsemble.jl#L212-L228' class='documenter-source'>source</a><br></p>
               
             </div>
           </div>
@@ -274,5 +306,5 @@ julia&gt; CTMCEnsemble.stationdist(G)
 
 <!--
 MkDocs version : 0.16.1
-Build Date UTC : 2017-02-13 07:32:51
+Build Date UTC : 2017-02-13 07:54:35
 -->
