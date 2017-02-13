@@ -121,9 +121,35 @@ julia> powermethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
  0.333333
  0.333333
  0.333333
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> powermethod([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.333333  0.0244257  0.0217406  0.230769
+ 0.333333  0.0976007  0.195655   0.538462
+ 0.333333  0.877974   0.782604   0.230769
 ```
 """
 function powermethod(preds, weights=nothing; maxiter=24)
+    ndims(preds[1][1]) == 1 &&
+        return _powermethod(preds, weights)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, _powermethod(map(x -> (x[1][:, i], x[2]), preds), weights, maxiter=maxiter))
+    end
+    hcat(ans...)
+end
+
+function _powermethod(preds, weights=nothing; maxiter=24)
     weights == nothing && (weights = ones(length(preds)))
     A = build(preds, weights)
     A .+= eye(A) .* sum(weights)
@@ -149,9 +175,35 @@ julia> svdmethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
  0.333333
  0.333333
  0.333333
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> svdmethod([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.333333  0.0243902  0.0217391  0.230769
+ 0.333333  0.097561   0.195652   0.538462
+ 0.333333  0.878049   0.782609   0.230769
 ```
 """
-function svdmethod(preds, weights=nothing;)
+function svdmethod(preds, weights=nothing)
+    ndims(preds[1][1]) == 1 &&
+        return _svdmethod(preds, weights)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, _svdmethod(map(x -> (x[1][:, i], x[2]), preds), weights))
+    end
+    hcat(ans...)
+end
+
+function _svdmethod(preds, weights=nothing;)
     λ, ϕ = eig(build(preds, weights))
     v = real(ϕ[:, indmin(abs(λ))])
     v / sum(v)
