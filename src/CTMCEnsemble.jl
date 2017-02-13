@@ -196,32 +196,31 @@ julia> ctmc([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
  0.333333
  0.333333
 
-julia> A = [0.5 0.2 0.1; 0.5 0.8 0.9]
-2×3 Array{Float64,2}:
- 0.5  0.2  0.1
- 0.5  0.8  0.9
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
 
-julia> B = [0.5 0.1 0.2; 0.5 0.9 0.8]
-2×3 Array{Float64,2}:
- 0.5  0.1  0.2
- 0.5  0.9  0.8
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
 
 julia> ctmc([(A, [1, 2]), (B, [2, 3])])
-3×3 Array{Float64,2}:
- 0.333333  0.0243902  0.0217391
- 0.333333  0.097561   0.195652
- 0.333333  0.878049   0.782609
+3×4 Array{Float64,2}:
+ 0.333333  0.0243902  0.0217391  0.230769
+ 0.333333  0.097561   0.195652   0.538462
+ 0.333333  0.878049   0.782609   0.230769
 ```
 """
-function ctmc{F<:Real, I<:Integer}(preds::Array{Tuple{Array{F, 2}, Array{I, 1}}, 1}, weights=nothing)
+function ctmc(preds, weights=nothing)
+    ndims(preds[1][1]) == 1 &&
+        return stationdist(build(preds, weights))
     ans = []
     for i = 1:size(preds[1][1], 2)
         push!(ans, stationdist(build(map(x -> (x[1][:, i], x[2]), preds), weights)))
     end
     hcat(ans...)
 end
-
-ctmc{F<:Real, I<:Integer}(preds::Array{Tuple{Array{F, 1}, Array{I, 1}}, 1}, weights=nothing) =
-        stationdist(build(preds, weights))
 
 end # module
