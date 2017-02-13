@@ -26,9 +26,41 @@ julia> average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], multiplicity=false)
  0.25
  0.5
  0.25
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> average([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.333333  0.129032  0.0689655  0.230769
+ 0.333333  0.290323  0.37931    0.538462
+ 0.333333  0.580645  0.551724   0.230769
+
+julia> average([(A, [1, 2]), (B, [2, 3])], multiplicity=false)
+3×4 Array{Float64,2}:
+ 0.25  0.1   0.05  0.15
+ 0.5   0.45  0.55  0.7
+ 0.25  0.45  0.4   0.15
 ```
 """
 function average(preds, weights=nothing; multiplicity=true)
+    ndims(preds[1][1]) == 1 &&
+        return _average(preds, weights, multiplicity=multiplicity)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, _average(map(x -> (x[1][:, i], x[2]), preds), weights, multiplicity=multiplicity))
+    end
+    hcat(ans...)
+end
+
+function _average(preds, weights=nothing; multiplicity=true)
     nclass = maximum(maximum.(getindex.(preds, 2)))
     weights == nothing && (weights = ones(length(preds)))
     v = zeros(nclass)
