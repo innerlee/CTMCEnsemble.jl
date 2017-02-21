@@ -230,7 +230,7 @@ function _powermethod(preds, weights=nothing; maxiter=24)
 end
 
 """
-    svdmethod(preds, weights=nothing; maxiter=16)
+    svdmethod(preds, weights=nothing)
 
 Compute stationary distribution by svd method.
 
