@@ -1,10 +1,13 @@
 module CTMCEnsemble
 
+using StatsBase
+
 export
     average,
     product,
     vote,
     sink,
+    bordacount,
     powermethod,
     svdmethod,
     ctmc,
@@ -181,23 +184,74 @@ julia> vote([(A, [1, 2]), (B, [2, 3])])
  0.0  0.5  0.5  0.0
 ```
 """
-function vote(preds, weights=nothing; multiplicity=true)
+function vote(preds, weights=nothing)
     ndims(preds[1][1]) == 1 &&
-        return _vote(preds, weights, multiplicity=multiplicity)
+        return _vote(preds, weights)
     ans = []
     for i = 1:size(preds[1][1], 2)
-        push!(ans, _vote(map(x -> (x[1][:, i], x[2]), preds), weights, multiplicity=multiplicity))
+        push!(ans, _vote(map(x -> (x[1][:, i], x[2]), preds), weights))
     end
     hcat(ans...)
 end
 
-function _vote(preds, weights=nothing; multiplicity=true)
+function _vote(preds, weights=nothing)
     nclass = maximum(maximum.(getindex.(preds, 2)))
     weights == nothing && (weights = ones(length(preds)))
     v = zeros(nclass)
     for ((pred, label), w) in zip(preds, weights)
         i = label[indmax(pred)]
         v[i] .+= w
+    end
+    normalize!(v, 1)
+end
+
+"""
+    bordacount(preds, weights=nothing)
+
+Compute the Borda count vote.
+
+# Example
+
+```jldoctest
+julia> bordacount([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3-element Array{Float64,1}:
+ 0.25
+ 0.5
+ 0.25
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> bordacount([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.25  0.166667  0.166667  0.166667
+ 0.5   0.5       0.5       0.666667
+ 0.25  0.333333  0.333333  0.166667
+```
+"""
+function bordacount(preds, weights=nothing)
+    ndims(preds[1][1]) == 1 &&
+        return _bordacount(preds, weights)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, _bordacount(map(x -> (x[1][:, i], x[2]), preds), weights))
+    end
+    hcat(ans...)
+end
+
+function _bordacount(preds, weights=nothing)
+    nclass = maximum(maximum.(getindex.(preds, 2)))
+    weights == nothing && (weights = ones(length(preds)))
+    v = zeros(nclass)
+    for ((pred, label), w) in zip(preds, weights)
+        v[label] .+= w .* competerank(pred)
     end
     normalize!(v, 1)
 end
@@ -486,9 +540,9 @@ function chase(Q::Array, src)
     assert(nclass == size(Q, 2) && maximum(src) <= nclass)
     p = zeros(nclass)
     d = Dict()
-    inds = []
     for i in src
         at = i
+        inds = []
         while true
             at in inds && break
             if haskey(d, at)
