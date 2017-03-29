@@ -485,12 +485,22 @@ function chase(Q::Array, src)
     nclass = size(Q, 1)
     assert(nclass == size(Q, 2) && maximum(src) <= nclass)
     p = zeros(nclass)
+    d = Dict()
+    inds = []
     for i in src
         at = i
         while true
+            if haskey(d, at)
+                at = d[at]
+                break
+            end
+            push!(inds, at)
             v = Q[:, at] - Q[at, :]
-            maximum(v) <= 0 && break
+            maximum(v) <= 1e-7 && break
             at = indmax(v)
+        end
+        for j in inds
+            d[j] = at
         end
         p[at] += 1
     end
