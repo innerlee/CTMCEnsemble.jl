@@ -425,14 +425,25 @@ julia> sink([(A, [1, 2]), (B, [2, 3])])
  1.0  0.0  0.0  0.0
  0.0  0.0  0.0  1.0
  0.0  1.0  1.0  0.0
+
+julia> sink([(A, [1, 2]), (B, [2, 3])], multiple_src=true)
+3×4 Array{Float64,2}:
+ 0.333333  0.0  0.0  0.0
+ 0.333333  0.0  0.0  1.0
+ 0.333333  1.0  1.0  0.0
 ```
 """
-function sink(preds, weights=nothing)
+function sink(preds, weights=nothing; multiple_src=false)
     ndims(preds[1][1]) == 1 &&
         return chase(build(preds, weights), 1)
+    src = 1
+    if multiple_src
+        nclass = maximum(maximum.(getindex.(preds, 2)))
+        src = 1:nclass
+    end
     ans = []
     for i = 1:size(preds[1][1], 2)
-        push!(ans, chase(build(map(x -> (x[1][:, i], x[2]), preds), weights), 1))
+        push!(ans, chase(build(map(x -> (x[1][:, i], x[2]), preds), weights), src))
     end
     hcat(ans...)
 end
