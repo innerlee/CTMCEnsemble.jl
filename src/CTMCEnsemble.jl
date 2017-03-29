@@ -490,6 +490,7 @@ function chase(Q::Array, src)
     for i in src
         at = i
         while true
+            at in inds && break
             if haskey(d, at)
                 at = d[at]
                 break
