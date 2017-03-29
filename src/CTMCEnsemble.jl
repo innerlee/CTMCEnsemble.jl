@@ -3,6 +3,7 @@ module CTMCEnsemble
 export
     average,
     product,
+    vote,
     powermethod,
     svdmethod,
     ctmc,
@@ -144,6 +145,58 @@ function _product(preds, weights=nothing; multiplicity=true)
     if multiplicity
         assert(all(m .> 0))
         v .^= (1 ./ m)
+    end
+    normalize!(v, 1)
+end
+
+"""
+    vote(preds, weights=nothing)
+
+Compute the vote.
+
+# Example
+
+```jldoctest
+julia> vote([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3-element Array{Float64,1}:
+ 0.5
+ 0.5
+ 0.0
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> vote([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.5  0.0  0.0  0.0
+ 0.5  0.5  0.5  1.0
+ 0.0  0.5  0.5  0.0
+```
+"""
+function vote(preds, weights=nothing; multiplicity=true)
+    ndims(preds[1][1]) == 1 &&
+        return _vote(preds, weights, multiplicity=multiplicity)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, _vote(map(x -> (x[1][:, i], x[2]), preds), weights, multiplicity=multiplicity))
+    end
+    hcat(ans...)
+end
+
+function _vote(preds, weights=nothing; multiplicity=true)
+    nclass = maximum(maximum.(getindex.(preds, 2)))
+    weights == nothing && (weights = ones(length(preds)))
+    v = zeros(nclass)
+    for ((pred, label), w) in zip(preds, weights)
+        i = label[indmax(pred)]
+        v[i] .+= w
     end
     normalize!(v, 1)
 end
@@ -406,16 +459,16 @@ julia> p = [0.49  0.09  0.71  0.07  0.28
 
 julia> softmax!(p)
 10×5 Array{Float64,2}:
- 0.018823   0.0126174  0.0234549  0.0123676  0.0152576
- 0.0239287  0.0186357  0.0116474  0.0301167  0.0192033
- 0.0275246  0.0126174  0.0246575  0.0216516  0.0170318
- 0.0166945  0.022089   0.0280806  0.0157223  0.0175504
- 0.0210117  0.018823   0.0139444  0.0142261  0.0249053
- 0.0201878  0.0158803  0.0151058  0.0313458  0.0289358
- 0.0190122  0.0264453  0.0310339  0.0172029  0.0259217
- 0.0162011  0.0118827  0.0264453  0.0123676  0.0214362
- 0.0292266  0.0244121  0.0133977  0.0166945  0.0142261
- 0.0148067  0.0139444  0.0264453  0.0229905  0.0218692
+ 0.0907496  0.0711453  0.109493   0.063526   0.0739451
+ 0.115365   0.10508    0.0543729  0.154694   0.0930673
+ 0.132702   0.0711453  0.115107   0.111213   0.0825433
+ 0.0804877  0.124552   0.131088   0.0807574  0.0850571
+ 0.101302   0.106136   0.0650961  0.0730723  0.120702
+ 0.0973297  0.0895435  0.0705178  0.161007   0.140235
+ 0.0916616  0.149116   0.144874   0.0883626  0.125628
+ 0.0781089  0.0670021  0.123454   0.063526   0.103889
+ 0.140908   0.137651   0.0625437  0.0857511  0.0689459
+ 0.0713862  0.0786277  0.123454   0.11809    0.105988
 ```
 """
 function softmax!(data)
