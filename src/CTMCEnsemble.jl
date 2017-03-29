@@ -4,6 +4,7 @@ export
     average,
     product,
     vote,
+    sink,
     powermethod,
     svdmethod,
     ctmc,
@@ -393,6 +394,96 @@ function ctmc(preds, weights=nothing)
         push!(ans, stationdist(build(map(x -> (x[1][:, i], x[2]), preds), weights)))
     end
     hcat(ans...)
+end
+
+"""
+    sink(preds, weights=nothing)
+
+Compute stationary distribution by sink method.
+
+# Example
+
+```jldoctest
+julia> sink([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3-element Array{Float64,1}:
+ 1.0
+ 0.0
+ 0.0
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> sink([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 1.0  0.0  0.0  0.0
+ 0.0  0.0  0.0  1.0
+ 0.0  1.0  1.0  0.0
+```
+"""
+function sink(preds, weights=nothing)
+    ndims(preds[1][1]) == 1 &&
+        return chase(build(preds, weights), 1)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, chase(build(map(x -> (x[1][:, i], x[2]), preds), weights), 1))
+    end
+    hcat(ans...)
+end
+
+"""
+    chase(Q::Array, src)
+
+Chase to the highest points from src points in the graph with weights Q.
+\$Q_{i,j}\$ is the weight going from point \$j\$ to \$i\$.
+Returns an array indicates the number of each point being end points.
+
+# Example
+
+```jldoctest
+julia> G = CTMCEnsemble.build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);
+
+julia> CTMCEnsemble.chase(G, 1)
+3-element Array{Float64,1}:
+ 1.0
+ 0.0
+ 0.0
+
+julia> CTMCEnsemble.chase(G, [1, 2])
+3-element Array{Float64,1}:
+ 0.5
+ 0.5
+ 0.0
+
+julia> G = CTMCEnsemble.build([([0.4, 0.6], [1, 2]), ([0.4, 0.6], [2, 3])]);
+
+julia> CTMCEnsemble.chase(G, [1, 2, 3])
+3-element Array{Float64,1}:
+ 0.0
+ 0.0
+ 1.0
+```
+"""
+function chase(Q::Array, src)
+    nclass = size(Q, 1)
+    assert(nclass == size(Q, 2) && maximum(src) <= nclass)
+    p = zeros(nclass)
+    for i in src
+        at = i
+        while true
+            v = Q[:, at] - Q[at, :]
+            maximum(v) <= 0 && break
+            at = indmax(v)
+        end
+        p[at] += 1
+    end
+    normalize!(p, 1)
 end
 
 """
