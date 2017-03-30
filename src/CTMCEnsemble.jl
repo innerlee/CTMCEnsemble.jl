@@ -8,6 +8,7 @@ export
     vote,
     sink,
     bordacount,
+    dempstershafer_rogova,
     powermethod,
     svdmethod,
     ctmc,
@@ -149,6 +150,64 @@ function _product(preds, weights=nothing; multiplicity=true)
     if multiplicity
         assert(all(m .> 0))
         v .^= (1 ./ m)
+    end
+    normalize!(v, 1)
+end
+
+"""
+    dempstershafer_rogova(preds)
+
+Compute the dempstershafer_rogova.
+
+# Example
+
+```jldoctest
+julia> dempstershafer_rogova([([0.2, 0.8], [1, 2])])
+2-element Array{Float64,1}:
+ 0.0588235
+ 0.941176
+
+julia> dempstershafer_rogova([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+3-element Array{Float64,1}:
+ 0.428571
+ 0.142857
+ 0.428571
+
+julia> A = [0.5 0.2 0.1 0.3; 0.5 0.8 0.9 0.7]
+2×4 Array{Float64,2}:
+ 0.5  0.2  0.1  0.3
+ 0.5  0.8  0.9  0.7
+
+julia> B = [0.5 0.1 0.2 0.7; 0.5 0.9 0.8 0.3]
+2×4 Array{Float64,2}:
+ 0.5  0.1  0.2  0.7
+ 0.5  0.9  0.8  0.3
+
+julia> dempstershafer_rogova([(A, [1, 2]), (B, [2, 3])])
+3×4 Array{Float64,2}:
+ 0.428571  0.0503319   0.0134788  0.18598
+ 0.142857  0.00884956  0.0519897  0.628041
+ 0.428571  0.940819    0.934531   0.18598
+```
+"""
+function dempstershafer_rogova(preds)
+    ndims(preds[1][1]) == 1 &&
+        return _dempstershafer_rogova(preds)
+    ans = []
+    for i = 1:size(preds[1][1], 2)
+        push!(ans, _dempstershafer_rogova(map(x -> (x[1][:, i], x[2]), preds)))
+    end
+    hcat(ans...)
+end
+
+function _dempstershafer_rogova(preds)
+    nclass = maximum(maximum.(getindex.(preds, 2)))
+    v = ones(nclass)
+    for (pred, label) in preds
+        p = prod(1 .- pred)
+        q = pred .* p ./ (1 .- pred)
+        e = q ./ (1 .- pred + q)
+        v[label] .*= e
     end
     normalize!(v, 1)
 end
