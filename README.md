@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.com/innerlee/CTMCEnsemble.jl.svg?token=QaB6ijkBZpoUGF1MyQpy&branch=master)](https://travis-ci.com/innerlee/CTMCEnsemble.jl)
 [![](https://img.shields.io/badge/docs-latest-blue.svg)](https://innerlee.github.io/CTMCEnsemble.jl/latest)
 
+Implementation of the paper [Integrating Specialized Classifiers Based on Continuous Time Markov Chain](https://www.ijcai.org/proceedings/2017/312) by Zhizhong Li and Dahua Lin.
+
 ## Example
 
 ```julia
