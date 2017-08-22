@@ -103,7 +103,7 @@
 
 <p>Compute the average. <code>multiplicity</code> for arithmetic mean based on mulitpiliciity.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; average([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.333333
  0.333333
@@ -138,7 +138,7 @@ julia&gt; average([(A, [1, 2]), (B, [2, 3])], multiplicity=false)
  0.25  0.45  0.4   0.15
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L19-L61' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L19-L61' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.bordacount' href='#CTMCEnsemble.bordacount'>#</a>
 <strong><code>CTMCEnsemble.bordacount</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>bordacount(preds, weights=nothing)
@@ -146,7 +146,7 @@ julia&gt; average([(A, [1, 2]), (B, [2, 3])], multiplicity=false)
 
 <p>Compute the Borda count vote.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; bordacount([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; bordacount([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.25
  0.5
@@ -169,7 +169,7 @@ julia&gt; bordacount([(A, [1, 2]), (B, [2, 3])])
  0.25  0.333333  0.333333  0.166667
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L267-L297' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L267-L297' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.ctmc' href='#CTMCEnsemble.ctmc'>#</a>
 <strong><code>CTMCEnsemble.ctmc</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>ctmc(preds, weights=nothing)
@@ -177,7 +177,7 @@ julia&gt; bordacount([(A, [1, 2]), (B, [2, 3])])
 
 <p>Compute stationary distribution by CTMC method.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; ctmc([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; ctmc([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.333333
  0.333333
@@ -200,7 +200,7 @@ julia&gt; ctmc([(A, [1, 2]), (B, [2, 3])])
  0.333333  0.878049   0.782609   0.230769
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L471-L501' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L471-L501' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.dempstershafer_rogova-Tuple{Any}' href='#CTMCEnsemble.dempstershafer_rogova-Tuple{Any}'>#</a>
 <strong><code>CTMCEnsemble.dempstershafer_rogova</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>dempstershafer_rogova(preds)
@@ -208,7 +208,7 @@ julia&gt; ctmc([(A, [1, 2]), (B, [2, 3])])
 
 <p>Compute the dempstershafer_rogova.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; dempstershafer_rogova([([0.2, 0.8], [1, 2])])
+<pre><code class="julia-repl">julia&gt; dempstershafer_rogova([([0.2, 0.8], [1, 2])])
 2-element Array{Float64,1}:
  0.0588235
  0.941176
@@ -236,7 +236,7 @@ julia&gt; dempstershafer_rogova([(A, [1, 2]), (B, [2, 3])])
  0.428571  0.940819    0.934531   0.18598
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L157-L192' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L157-L192' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.powermethod' href='#CTMCEnsemble.powermethod'>#</a>
 <strong><code>CTMCEnsemble.powermethod</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>powermethod(preds, weights=nothing; maxiter=16)
@@ -244,7 +244,7 @@ julia&gt; dempstershafer_rogova([(A, [1, 2]), (B, [2, 3])])
 
 <p>Compute stationary distribution by power method.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; powermethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
+<pre><code class="julia-repl">julia&gt; powermethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])], maxiter=16)
 3-element Array{Float64,1}:
  0.333333
  0.333333
@@ -267,7 +267,7 @@ julia&gt; powermethod([(A, [1, 2]), (B, [2, 3])])
  0.333333  0.877974   0.782604   0.230769
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L345-L375' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L345-L375' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.product' href='#CTMCEnsemble.product'>#</a>
 <strong><code>CTMCEnsemble.product</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>product(preds, weights=nothing; multiplicity=true)
@@ -275,7 +275,7 @@ julia&gt; powermethod([(A, [1, 2]), (B, [2, 3])])
 
 <p>Compute the product. <code>multiplicity</code> for geometric mean based on mulitpiliciity.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; product([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.333333
  0.333333
@@ -310,7 +310,7 @@ julia&gt; product([(A, [1, 2]), (B, [2, 3])], multiplicity=false)
  0.4  0.762712   0.740741   0.275229
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L88-L130' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L88-L130' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.sink' href='#CTMCEnsemble.sink'>#</a>
 <strong><code>CTMCEnsemble.sink</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>sink(preds, weights=nothing)
@@ -318,7 +318,7 @@ julia&gt; product([(A, [1, 2]), (B, [2, 3])], multiplicity=false)
 
 <p>Compute stationary distribution by sink method.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; sink([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; sink([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  1.0
  0.0
@@ -347,7 +347,7 @@ julia&gt; sink([(A, [1, 2]), (B, [2, 3])], multiple_src=true)
  0.333333  1.0  1.0  0.0
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L512-L548' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L512-L548' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.softmax!-Tuple{Any}' href='#CTMCEnsemble.softmax!-Tuple{Any}'>#</a>
 <strong><code>CTMCEnsemble.softmax!</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>softmax!(data)
@@ -355,7 +355,7 @@ julia&gt; sink([(A, [1, 2]), (B, [2, 3])], multiple_src=true)
 
 <p>Inplace softmax col-wise.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; p = [0.49  0.09  0.71  0.07  0.28
+<pre><code class="julia-repl">julia&gt; p = [0.49  0.09  0.71  0.07  0.28
             0.73  0.48  0.01  0.96  0.51
             0.87  0.09  0.76  0.63  0.39
             0.37  0.65  0.89  0.31  0.42
@@ -380,7 +380,7 @@ julia&gt; softmax!(p)
  0.0713862  0.0786277  0.123454   0.11809    0.105988
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L667-L699' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L667-L699' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.svdmethod' href='#CTMCEnsemble.svdmethod'>#</a>
 <strong><code>CTMCEnsemble.svdmethod</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>svdmethod(preds, weights=nothing)
@@ -388,7 +388,7 @@ julia&gt; softmax!(p)
 
 <p>Compute stationary distribution by svd method.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; svdmethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; svdmethod([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.333333
  0.333333
@@ -411,7 +411,7 @@ julia&gt; svdmethod([(A, [1, 2]), (B, [2, 3])])
  0.333333  0.878049   0.782609   0.230769
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L399-L429' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L399-L429' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.top1-Tuple{Any,Any}' href='#CTMCEnsemble.top1-Tuple{Any,Any}'>#</a>
 <strong><code>CTMCEnsemble.top1</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>top1(data, label)
@@ -419,7 +419,7 @@ julia&gt; svdmethod([(A, [1, 2]), (B, [2, 3])])
 
 <p>Top-1 accuracy.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; p = [0.333333  0.0243902  0.0217391  0.230769
+<pre><code class="julia-repl">julia&gt; p = [0.333333  0.0243902  0.0217391  0.230769
             0.333333  0.097561   0.195652   0.538462
             0.333333  0.878049   0.782609   0.230769];
 
@@ -427,7 +427,7 @@ julia&gt; top1(p, [1, 3, 3, 2])
 1.0
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L624-L639' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L624-L639' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.top5-Tuple{Any,Any}' href='#CTMCEnsemble.top5-Tuple{Any,Any}'>#</a>
 <strong><code>CTMCEnsemble.top5</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>top5(data, label)
@@ -435,7 +435,7 @@ julia&gt; top1(p, [1, 3, 3, 2])
 
 <p>Top-5 accuracy.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; p = [0.49  0.09  0.71  0.07  0.28
+<pre><code class="julia-repl">julia&gt; p = [0.49  0.09  0.71  0.07  0.28
             0.73  0.48  0.01  0.96  0.51
             0.87  0.09  0.76  0.63  0.39
             0.37  0.65  0.89  0.31  0.42
@@ -450,7 +450,7 @@ julia&gt; top5(p, 1:5)
 0.6
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L642-L664' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L642-L664' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.vote' href='#CTMCEnsemble.vote'>#</a>
 <strong><code>CTMCEnsemble.vote</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>vote(preds, weights=nothing)
@@ -458,7 +458,7 @@ julia&gt; top5(p, 1:5)
 
 <p>Compute the vote.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; vote([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; vote([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3-element Array{Float64,1}:
  0.5
  0.5
@@ -481,7 +481,7 @@ julia&gt; vote([(A, [1, 2]), (B, [2, 3])])
  0.0  0.5  0.5  0.0
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L215-L245' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L215-L245' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.build' href='#CTMCEnsemble.build'>#</a>
 <strong><code>CTMCEnsemble.build</code></strong> &mdash; <em>Function</em>.</p>
 <pre><code>build(preds, weights=nothing; nclass=0)
@@ -489,14 +489,14 @@ julia&gt; vote([(A, [1, 2]), (B, [2, 3])])
 
 <p>Build the generator matrix.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; CTMCEnsemble.build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
+<pre><code class="julia-repl">julia&gt; CTMCEnsemble.build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])])
 3×3 Array{Float64,2}:
  -0.5   0.5   0.0
   0.5  -1.0   0.5
   0.0   0.5  -0.5
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L320-L334' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L320-L334' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.chase-Tuple{Array,Any}' href='#CTMCEnsemble.chase-Tuple{Array,Any}'>#</a>
 <strong><code>CTMCEnsemble.chase</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>chase(Q::Array, src)
@@ -504,7 +504,7 @@ julia&gt; vote([(A, [1, 2]), (B, [2, 3])])
 
 <p>Chase to the highest points from src points in the graph with weights Q. $Q_{i,j}$ is the weight going from point $j$ to $i$. Returns an array indicates the number of each point being end points.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; G = CTMCEnsemble.build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);
+<pre><code class="julia-repl">julia&gt; G = CTMCEnsemble.build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);
 
 julia&gt; CTMCEnsemble.chase(G, 1)
 3-element Array{Float64,1}:
@@ -527,7 +527,7 @@ julia&gt; CTMCEnsemble.chase(G, [1, 2, 3])
  1.0
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L564-L596' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L564-L596' class='documenter-source'>source</a><br></p>
 <p><a id='CTMCEnsemble.stationdist-Tuple{Any}' href='#CTMCEnsemble.stationdist-Tuple{Any}'>#</a>
 <strong><code>CTMCEnsemble.stationdist</code></strong> &mdash; <em>Method</em>.</p>
 <pre><code>stationdist(G)
@@ -535,7 +535,7 @@ julia&gt; CTMCEnsemble.chase(G, [1, 2, 3])
 
 <p>Compute stationary probability distribution given generator $G$.</p>
 <p><strong>Example</strong></p>
-<pre><code class="jlcon">julia&gt; G = CTMCEnsemble.build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);
+<pre><code class="julia-repl">julia&gt; G = CTMCEnsemble.build([([0.5, 0.5], [1, 2]), ([0.5, 0.5], [2, 3])]);
 
 julia&gt; CTMCEnsemble.stationdist(G)
 3-element Array{Float64,1}:
@@ -544,7 +544,7 @@ julia&gt; CTMCEnsemble.stationdist(G)
  0.333333
 </code></pre>
 
-<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/49af30e5f4b6d2916507fba83433aa0de2e3e854/src/CTMCEnsemble.jl#L446-L462' class='documenter-source'>source</a><br></p>
+<p><a target='_blank' href='https://github.com/innerlee/CTMCEnsemble.jl/tree/d7e67126e473c11bd203fc27886dd4e67694577e/src/CTMCEnsemble.jl#L446-L462' class='documenter-source'>source</a><br></p>
               
             </div>
           </div>
@@ -585,6 +585,6 @@ julia&gt; CTMCEnsemble.stationdist(G)
 </html>
 
 <!--
-MkDocs version : 0.16.2
-Build Date UTC : 2017-03-30 08:35:35
+MkDocs version : 0.16.3
+Build Date UTC : 2017-08-22 12:24:39
 -->
